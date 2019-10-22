@@ -4,8 +4,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $errors = [];
 
-    if (strlen($_POST['user_name']) <= 2) {
-        $errors['user_name_empty'] = 'Votre nom doit contenir plus de 2 caractères!';
+    if (strlen($_POST['user_firstname']) <= 2) {
+        $errors['user_firstname_empty'] = 'Votre prénom doit contenir plus de 2 caractères!';
+    }
+
+    if (strlen($_POST['user_lastname']) <= 2) {
+        $errors['user_lastname_empty'] = 'Votre nom doit contenir plus de 2 caractères!';
     }
 
     $phone = "/[0-9]{2}[[:space:]][0-9]{2}[[:space:]][0-9]{2}[[:space:]][0-9]{2}[[:space:]][0-9]{2}/";
@@ -29,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         session_start();
         $_SESSION['form'] = $_POST;
         // Redirection vers page de validation
-        header("Location: success.php");
+        header("Location: thanks.php");
     }
 }
 
@@ -53,10 +57,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <fieldset>
             <legend>Mon Formulaire</legend>
             <div>
-                <label for="nom">Nom :</label>
-                <input type="text" id="nom" name="user_name"
-                       value="<?php if (isset($_POST['user_name'])) echo $_POST['user_name']; ?>"/>
-                <p class="error"><?php if (isset($errors['user_name_empty'])) echo $errors['user_name_empty']; ?></p>
+                <label for="firstname">Prénom :</label>
+                <input type="text" id="firstname" name="user_firstname"
+                       value="<?php if (isset($_POST['user_firstname'])) echo $_POST['user_firstname']; ?>"/>
+                <p class="error"><?php if (isset($errors['user_firstname_empty'])) echo $errors['user_firstname_empty']; ?></p>
+            </div>
+            <div>
+                <label for="lastname">Nom :</label>
+                <input type="text" id="lastname" name="user_lastname"
+                       value="<?php if (isset($_POST['user_lastname'])) echo $_POST['user_lastname']; ?>"/>
+                <p class="error"><?php if (isset($errors['user_lastname_empty'])) echo $errors['user_lastname_empty']; ?></p>
             </div>
             <div>
                 <label for="phone">Téléphone :</label>
